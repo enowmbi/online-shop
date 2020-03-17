@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :add_to_cart]
 
   # GET /products
   # GET /products.json
@@ -59,6 +59,18 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def add_to_cart
+    if session[:cart_id].blank?
+      cart = Cart.create(status: "pending")
+      session[:cart_id] = cart.id
+    else
+      cart = Cart.find(session[:cart_id])
+    end
+
+    cart.cartships.create(product_id: @product.id,quantity: 1)
+    redirect_to cart
   end
 
   private
