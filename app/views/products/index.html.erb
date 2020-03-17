@@ -10,7 +10,7 @@
       </a>
       <div><%= product.name %></div>
       <div><%= number_to_currency(product.unit_price)   %></div>
-      <div><%= link_to("Add to cart",root_path) %>
+      <div><%= link_to("Add to cart",add_to_cart_product_path(product)) %>
 
       <p></p>
       </div>
