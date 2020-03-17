@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: :show
   get 'users/show'
-  resources :products
+  resources :products do 
+    member do
+      get :add_to_cart
+    end
+  end
   get 'carts/show'
 end
