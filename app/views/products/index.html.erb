@@ -8,6 +8,7 @@
           <div><%= image_tag product.thumbnail,class: "img-thumbnail img-responsive", size: "250x250",alt: "#{product.name}"%></div>
           <div><%= product.name %></div>
           <div><%= number_to_currency(product.unit_price)   %></div>
+          <div><%= link_to("Add to cart",root_path) %>
         <% end %>
       </a>
       <p></p>
