@@ -4,7 +4,7 @@ class Cart < ApplicationRecord
   has_many :products, through: :cartships
 
   def total_price
-    cartships.map{|cartship| cartship.quantity * cartship.product.price}.sum
+    cartships.map{|cartship| cartship.quantity * cartship.product.unit_price}.sum
   end
 
 end
