@@ -8,5 +8,5 @@ Rails.application.routes.draw do
       get :add_to_cart
     end
   end
-  get 'carts/show'
+  resources :carts, only: :show
 end
