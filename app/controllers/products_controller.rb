@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :add_to_cart]
+  before_action :authenticate_user!, only: :add_to_cart
 
   # GET /products
   # GET /products.json
@@ -63,14 +64,14 @@ class ProductsController < ApplicationController
 
   def add_to_cart
     if session[:cart_id].blank?
-      cart = Cart.create(status: "pending")
+      cart =current_user.carts.create(status: "pending")
       session[:cart_id] = cart.id
     else
       cart = Cart.find(session[:cart_id])
     end
 
     cart.cartships.create(product_id: @product.id,quantity: 1)
-    redirect_to cart
+    redirect_to cart_path
   end
 
   private
