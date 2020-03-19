@@ -1,26 +1,25 @@
 <h1>Cart Details</h1>
 <table class="table table-responsive ">
   <thead>
-      <td><strong>Product</strong></td>
-      <td><strong>Quantity</td>
-      <td><strong>Unit Price</td>
-      <td><strong>Total</td>
-    </strong>
+    <td><strong>Product</strong></td>
+    <td><strong>Unit Price</td>
+    <td><strong>Quantity</td>
+    <td><strong>Total</strong></td>
   </thead>
   <tbody>
-    <% @cart.cartships.each do |cartship| %>
+    <% @cart.each do |cartship| %>
       <tr>
-        <td><%= cartship.product.name %></td>
-        <td><%= cartship.quantity %></td>
-        <td><%= number_to_currency(cartship.product.unit_price) %></td>
-        <td><%= number_to_currency(cartship.quantity * cartship.product.unit_price) %></td>
+        <td><%= get_product_name(cartship) %></td>
+        <td><%= get_product_unit_price(cartship) %></td>
+        <td><%= get_product_quantity(cartship) %></td>
+        <td><%= get_extended_product_price(cartship) %></td>
       </tr>
     <% end %>
     <tr>
       <td><strong>Total</strong></td>
       <td></td>
       <td></td>
-      <td><strong><%= number_to_currency(@cart.total_price) %></strong></td>
+      <td><strong><%= get_total_amount_to_pay %></strong></td>
     </tr>
   </tbody>
 
