@@ -8,8 +8,13 @@
   <%= number_to_currency(@product.unit_price) %>
 </p>
 
+<p>
+  <strong>Category:</strong>
+  <%= p @product.category %>
+</p>
 <%= image_tag(@product.image) if @product.image.attached? %>
 <p>
+  <%= link_to 'Home', root_path %> |
   <%= link_to 'Edit', edit_product_path(@product) %> |
   <%= link_to 'Back', products_path %>
 </p>
