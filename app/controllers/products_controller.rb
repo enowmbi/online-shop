@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :add_to_cart]
-  before_action :set_categories, only: [:index, :new]
+  before_action :set_categories, only: [:index]
   before_action :authenticate_user!, only: :add_to_cart
 
   # GET /products
