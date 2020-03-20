@@ -10,7 +10,7 @@
 
 <p>
   <strong>Category:</strong>
-  <%= p @product.category %>
+  <%= @product.category.name %>
 </p>
 <%= image_tag(@product.image) if @product.image.attached? %>
 <p>
