@@ -4,9 +4,11 @@
   <div class="col-md-3">
     <h3>Product Categories</h3>
     <% @categories.each do |category| %>
-      <div>
-        <%= link_to(category.name,products_category_path(category)) %>
-      </div> 
+      <% if category.products_count > 0 %>
+        <div>
+          <%= link_to(category.name, products_category_path(category)) %>
+        </div> 
+      <% end %>
     <% end %>
   </div>
   <div class="col-md-9">
