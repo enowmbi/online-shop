@@ -8,4 +8,5 @@ Rails.application.routes.draw do
     end
   end
   resources :carts, only: :show
+  resources :categories
 end
