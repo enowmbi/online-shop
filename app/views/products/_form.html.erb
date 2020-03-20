@@ -21,6 +21,11 @@
     <%= form.text_field :unit_price %>
   </div>
 
+  <div class="field">
+    <%= form.label :category %>
+    <%= form.select(:category_id,Category.all.map{|cat|[cat.name,cat.id]}) %>
+  </div>
+
   <%= form.file_field :image %>
 
   <div class="actions">
