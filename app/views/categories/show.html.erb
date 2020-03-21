@@ -1,12 +1,52 @@
-<p>
-  <strong>Name:</strong>
-  <%= @category.name %>
-</p>
+<div class="row">
+  <div class="col-md-6">
+    <h1 class="text-center">Category Details </h1>
+    <div class="text-center">
+      <p>
+        <%= tag.hr %>
+        <%= link_to 'Home', root_path ,class:"btn btn-outline-primary btn-sm" %> |
+        <%= link_to 'Edit', edit_category_path(@category), class: "btn btn-outline-primary btn-sm" %> |
+        <%= link_to 'Back', categories_path, class:"btn btn-outline-primary btn-sm" %>
+      </p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <p>
+      <strong>Name:</strong>
+      <%= @category.name %>
+    </p>
+    <p>
+      <strong>Description:</strong>
+      <%= @category.description %>
+    </p>
+    <%= tag.hr %>
+    <strong>Number of products in this category: </strong><span class="badge badge-pill badge-primary"><%= @category.products_count %></span>
+  </div>
+</div>
+<%= tag.hr %>
+<div class="container">
+  <h4><%= "Products in #{@category.name} Category" %> </h4><span class="bagde badge-pill bagde-primary"><%= "#{@category.products_count}" %></span>
+  <%= tag.hr %>
+  <table class="table table-responsive">
+    <thead>
+      <th> Product Name </th>
+      <th> Description</th>
+      <th> Unit Price</th>
+      <th> Quantity in Stock</th>
+    </thead>
+    <tbody>
+      <% @category.products.each do |product| %>
+        <tr>
+          <td><%= link_to(product.name,product_path(product)) %></td>
+          <td><%= product.description %></td>
+          <td><%= number_to_currency(product.unit_price) %></td>
+          <td><%= 0 %></td>
+        </tr>
 
-<p>
-  <strong>Description:</strong>
-  <%= @category.description %>
-</p>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+</div>
+
+
