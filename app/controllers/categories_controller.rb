@@ -62,8 +62,9 @@ class CategoriesController < ApplicationController
   end
 
   def products
-    @products = Product.all
-    @categories = Category.find(params[:id]).includes(:products)
+    if params[:id] 
+      @categories = Category.where(id: params[:id]).includes(:products)
+    end
   end
 
   private
