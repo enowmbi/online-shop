@@ -1,18 +1,10 @@
 <div class="text-center"><h1>Products</h1></div>
 
-    <div class="row">
-      <% @products.each do |product| %>
-        <div class="col-sm-2 text-center">
-          <a href="/products/<%= product.id %>" >
-            <% if product.image.attached? %>
-              <div><%= image_tag(product.thumbnail,class: "img-thumbnail img-responsive",alt: "#{product.name}")%></div>
-            <% end %>
-          </a>
-          <div class="text-center"><%= truncate(product.name,length:15) %></div>
-          <div class="text-center"><%= number_to_currency(product.unit_price)   %></div>
-        </div>
-      <% end %>
-    </div>
+<div class="row">
+  <% @categories.each do |category| %>
+    <%= render partial: "shared/product_details", locals:{category: category} %>
+  <% end %>
+</div>
 <hr/>
 <p>
   <%= link_to 'New Product', new_product_path, class: "btn btn-primary" %>
