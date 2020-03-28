@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :add_to_cart]
-  before_action :set_categories, only: [:index]
   before_action :authenticate_user!, only: :add_to_cart
 
   # GET /products
@@ -79,10 +78,6 @@ class ProductsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_product
     @product = Product.find(params[:id])
-  end
-
-  def set_categories
-    @categories = Category.includes(:products)
   end
 
   # Only allow a list of trusted parameters through.
