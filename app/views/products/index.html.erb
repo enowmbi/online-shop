@@ -1,17 +1,5 @@
 <div class="text-center"><h1>Products</h1></div>
 
-<div class="row">
-  <div class="col-md-3">
-    <h3>Product Categories</h3>
-    <% @categories.each do |category| %>
-      <% if category.products_count > 0 %>
-        <div>
-          <%= link_to(category.name, products_category_path(category)) %>
-        </div> 
-      <% end %>
-    <% end %>
-  </div>
-  <div class="col-md-9">
     <div class="row">
       <% @products.each do |product| %>
         <div class="col-sm-2 text-center">
@@ -22,12 +10,9 @@
           </a>
           <div class="text-center"><%= truncate(product.name,length:15) %></div>
           <div class="text-center"><%= number_to_currency(product.unit_price)   %></div>
-          <div class="text-center"><%= link_to("Add to cart",add_to_cart_product_path(product),class:"btn btn-primary btn-sm") %></div>
         </div>
       <% end %>
     </div>
-  </div>
-</div>
 <hr/>
 <p>
   <%= link_to 'New Product', new_product_path, class: "btn btn-primary" %>
