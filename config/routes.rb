@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'products#index'
+  root to: 'categories#index'
   devise_for :users
   resources :users, only: :show
   resources :products do 
@@ -12,9 +12,5 @@ Rails.application.routes.draw do
       post :pay
     end
   end
-  resources :categories do 
-    member do 
-      get :products
-    end
-  end
+  resources :categories  
 end
