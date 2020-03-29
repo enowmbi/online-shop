@@ -17,7 +17,7 @@ class CartsController < ApplicationController
       source: params[:stripeToken]
     )
 
-    charge = Stripe::Charge.create(
+    Stripe::Charge.create(
       customer: customer.id,
       amount: (@amount * 100).to_i,
       description: "Online Shop - order Payment # #{@cart_id}",
@@ -35,7 +35,6 @@ class CartsController < ApplicationController
     redirect_to cart_path(Cart.find(session[:cart_id]))
     redirect_to new_charge_path
 
-    puts "running code after rescue !!!"
   end    
 
 end
