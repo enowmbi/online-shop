@@ -11,9 +11,12 @@
 
   <body>
     <%= render 'shared/navbar' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <p class="error"><%= flash[:error] %></p>
-    <%= yield %>
+    <% unless flash.nil? %>
+      <%= render 'shared/flash_messages', locals:{flash:flash } %> 
+    <% end %>
+
+    <div class="container-fluid">
+      <%= yield %>
+    </div>
   </body>
 </html>
