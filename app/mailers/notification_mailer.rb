@@ -1,16 +1,16 @@
 class NotificationMailer < ApplicationMailer
 
-  def successful_payment_notification(cart_id)
-    @greeting = "Dear #{current_user.email}"
+  def successful_payment_notification(cart)
+    @greeting = "Dear #{cart.user.email}"
     @subject = "Successful Payment"
-    @cart_id = cart_id
-    mail to: current_user.email
+    @cart_id = cart.id
+    mail to: 'benowmbi@yahoo.com'
   end
 
-  def failed_payment_notification(cart_id)
-    @greeting = "Dear #{current_user.email}"
+  def failed_payment_notification(cart)
+    @greeting = "Dear #{cart.user.email}"
     @subject = "Payment was not successful"
-    @cart_id = cart_id
-    mail to: current_user.email
+    @cart_id = cart.id
+    mail to: cart.user.email
   end
 end
