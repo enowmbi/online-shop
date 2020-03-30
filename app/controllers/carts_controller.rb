@@ -5,7 +5,7 @@ class CartsController < ApplicationController
       @cart_id = session[:cart_id]
       @cart_summary = Cart.find(session[:cart_id])
     rescue
-      redirect_to root_path,notice: "Selected cart is no longer active, probably because it has been paid already"
+      redirect_to root_path,alert: "Selected cart is no longer active, probably because it has been paid already"
     end
   end
 
@@ -27,13 +27,11 @@ class CartsController < ApplicationController
     @cart = Cart.find(session[:cart_id])
     @cart.update(status: "Paid")
     session.delete(:cart_id)
-    redirect_to root_path,notice: "Payment accepted -- Items are on their way"
+    redirect_to root_path,notice: "Payment accepted -- Items will be delivered within 48 hours"
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    puts "#{flash[:error]}"
     redirect_to cart_path(Cart.find(session[:cart_id]))
-    redirect_to new_charge_path
 
   end    
 
