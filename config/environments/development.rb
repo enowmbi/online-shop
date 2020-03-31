@@ -37,12 +37,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
+    address: Rails.application.credentials.mailjet.dig(:smtp_server),
     port: 587,
     authentication: 'plain',
     domain: 'localhost.com',
-    user_name: Rails.application.credentials.dig(:user_name),
-    password: Rails.application.credentials.dig(:password),
+    user_name: Rails.application.credentials.mailjet.dig(:username),
+    password: Rails.application.credentials.mailjet.dig(:password),
     enable_starttls_auto: true
   }
 
