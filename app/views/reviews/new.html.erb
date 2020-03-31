@@ -1,2 +1,32 @@
-<h1>Reviews#new</h1>
-<p>Find me in app/views/reviews/new.html.erb</p>
+<h2>New Review for '<i><%= @product.name %></i>'</h2>
+<%= form_for([@product,@product.reviews.build]) do |form| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <b> <%= form.label :rating %></b>
+    <%= form.number_field :rating,max:5,min: 1, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <b><%= form.label :comment %></b>
+    <%= form.text_area :comment,class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit class: "btn btn-outline-primary" %>
+  </div>
+<% end %>
+
+<script>
+  $('#rating-form').raty({path: '/assets/',scoreName: 'review[rating]'});
+</script>
