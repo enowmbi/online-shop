@@ -9,4 +9,11 @@ class Product < ApplicationRecord
     return self.image.variant(resize: "200 x 175").processed
   end
 
+  def medium
+    return self.image.variant(resize: "400 x 375").processed
+  end
+
+  def large
+    return self.image.variant(resize: "600 x 575").processed
+  end
 end
