@@ -1,20 +1,48 @@
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
+<p></p>
+<div class="row">
+  <div class="col-md-6">
+    <p>
+      <%= image_tag(@product.large,class: "img img-thumbnail img-responsive") if @product.image.attached?  %>
+    </p>
+    <div class="row">
+      <div class="col-md-6 border-width:2px">
+        <p>
+          <h5><%= @product.name %></h5>
+          <h6><%= @product.description %></h6>
+          <h5><%= number_to_currency(@product.unit_price) %></h5>
+          <h6><strong>Category: </strong><%= @product.category.name %></h6>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <p>
+          <h5><strong> Average Rating :</strong></h5> <div class="average-review-rating" data-score="<%= @average_rating ? @average_rating:0 %>"></div>
+          <div><i><%= " (based on #{pluralize(@product.reviews.count,'review')})" %></i></div>
+        </p>
+      </div>
+    </div>
+    <hr/>
+    <p class="text-center">
+      <%= link_to 'Home', products_path,class: "btn btn-outline-primary btn-sm" %>
+      <%= link_to 'Back', :back,class: "btn btn-outline-primary btn-sm" %>
+      <%= link_to 'Edit', edit_product_path(@product),class: "btn btn-outline-primary btn-sm" %>
+      <%= link_to 'Destroy', @product,method: :delete,data: {confirm: "Are you sure you want to delete #{@product.name} ?"},class: "btn btn-outline-danger btn-sm"  %>
+    </p>
+  </div>
+  <div class="col-md-6">
+    <% if user_signed_in? %>
+      <p>
+        <%= link_to('Add Review',new_product_review_path(@product),class: "btn btn-outline-primary")  %>
+      </p>
+    <% end %>
 
-<p>
-  <strong>Unit price:</strong>
-  <%= number_to_currency(@product.unit_price) %>
-</p>
 
-<p>
-  <strong>Category:</strong>
-  <%= @product.category.name %>
-</p>
-<%= image_tag(@product.image) if @product.image.attached? %>
-<p>
-  <%= link_to 'Home', root_path %> |
-  <%= link_to 'Edit', edit_product_path(@product) %> |
-  <%= link_to 'Back', products_path %>
-</p>
+    <p>
+      <div class="text-center">
+        <h4><strong> Reviews </strong><sup><span class="badge badge-pill badge-primary"><%= @product.reviews.count %></span></sup></h4>
+      </div>
+        <%= render @product.reviews %>
+    </p>
+
+  </div>
+</div>
+
