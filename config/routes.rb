@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :products do 
     member do
       get :add_to_cart
-      resources :reviews
     end
+    resources :reviews
   end
   resources :carts, only: :show do 
     member do
