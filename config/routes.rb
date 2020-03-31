@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'reviews/new'
+  get 'reviews/edit'
   root to: 'categories#index'
   devise_for :users
   resources :users, only: :show
