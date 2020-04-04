@@ -30,9 +30,13 @@
     </p>
   </div>
   <div class="col-md-6">
-    <% if user_signed_in? %>
+    <% if user_signed_in? && @product.can_review?(current_user) %>
       <p>
         <%= link_to('Add Review',new_product_review_path(@product),class: "btn btn-primary")  %>
+      </p>
+    <% else %>
+      <p class="alert alert-info text-center">
+        You have already reviewed this product. 
       </p>
     <% end %>
 
@@ -41,7 +45,7 @@
       <div class="text-center">
         <h4><strong> Reviews </strong><sup><span class="badge badge-pill badge-primary"><%= @product.reviews.count %></span></sup></h4>
       </div>
-        <%= render @product.reviews %>
+      <%= render @product.reviews %>
     </p>
 
   </div>
