@@ -16,4 +16,9 @@ class Product < ApplicationRecord
   def large
     return self.image.variant(resize: "600 x 575").processed
   end
+
+  def can_review?(user)
+    return true if Review.where(product_id: self.id, user_id: user.id).blank?
+  end
+  
 end
