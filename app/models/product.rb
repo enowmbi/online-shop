@@ -20,5 +20,14 @@ class Product < ApplicationRecord
   def allow_user_review?(user)
     return true if Review.where(product_id: self.id, user_id: user.id).blank?
   end
-  
+
+  def average_rating
+    reviews = self.reviews
+    if reviews.blank?
+      return 0
+    else
+      return reviews.average(:rating).round(2)
+    end
+  end
+
 end
