@@ -31,12 +31,17 @@
   </div>
   <div class="col-md-6">
     <% if user_signed_in? && @product.allow_user_review?(current_user) %>
+      <% if @product.reviews_count == 0 %>
+        <div class='alert alert-primary'>
+          Be the first to comment on this product !
+        </div>
+      <% end %>
       <p>
         <%= link_to('Add Review',new_product_review_path(@product),class: "btn btn-primary")  %>
       </p>
     <% else %>
       <p class="alert alert-info text-center">
-        You have reviewed this product already !. 
+        You have reviewed this product already !
       </p>
     <% end %>
 
