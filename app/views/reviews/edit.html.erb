@@ -14,15 +14,13 @@
 
   <div class="form-group">
     <b><%= form.label :current_rating %></b>
-    <%# <div class="review-rating" data-score="<%= form.object.rating %1>"></div> %>
-    <%= form.number_field :rating,max: 5, min:1, class: "form-control" %>
+    <div class="review-rating" data-score="<%= form.object.rating %>"></div>
   </div>
 
 
   <div class="form-group">
     <b><%= form.label :new_rating %></b>
-    <%# <div id="rating-form">  </div> %>
-    <%= form.number_field :rating,max: 5, min:1, class: "form-control" %>
+    <div id="rating-form">  </div>
   </div>
 
 
@@ -39,3 +37,13 @@
 
 <%= link_to 'Back', product_path(@review.product) %>
 
+<script>
+  $('#rating-form').raty({path: '/assets/',scoreName: 'review[rating]'});
+
+  $('.review-rating').raty({
+    readOnly: true,
+    score: function(){
+      return $(this).attr('data-score');},
+    path: '/assets/'
+  });
+</script>
