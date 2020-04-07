@@ -15,7 +15,7 @@
       </div>
       <div class="col-md-6">
         <p>
-          <h5><strong> Average Rating :</strong></h5> <div class="average-review-rating"> <%= @average_rating ? @average_rating:0 %></div>
+          <h5><strong> Average Rating :</strong></h5> <div class="average-review-rating" data-score="<%= @average_rating %>"></div>
           <div><i><%= " (based on #{pluralize(@product.reviews_count,'review')})" %></i></div>
         </p>
       </div>
@@ -56,3 +56,22 @@
   </div>
 </div>
 
+<script>
+  $('.review-rating').raty({
+    readOnly: true,
+    score: function(){
+      return $(this).attr('data-score');},
+    path: '/assets/'
+  });
+
+</script>
+
+<script>
+  $('.average-review-rating').raty({
+    readOnly: true,
+    score: function(){
+      return $(this).attr('data-score');},
+    path: '/assets/'
+  });
+
+</script>
