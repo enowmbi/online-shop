@@ -4,4 +4,6 @@ class Review < ApplicationRecord
 
   validates :user_id, uniqueness: {scope: :product_id,message: "You are entitled to only one review per product"}
 
+  default_scope ->{order(updated_at: :desc)}
+
 end
