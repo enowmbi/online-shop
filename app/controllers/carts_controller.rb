@@ -27,14 +27,12 @@ class CartsController < ApplicationController
     @cart = Cart.find(session[:cart_id])
     @cart.update(status: "Paid")
     session.delete(:cart_id)
-    PaymentNotificationJob.perform_later(@cart)
+    PaymentNotificationJob.perform_now(@cart)
     redirect_to root_path,notice: "Payment accepted -- Items will be delivered within 48 hours"
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    PaymentFailureNotificationJob.perform_later(@cart)
+    PaymentFailureNotificationJob.perform_now(@cart)
     redirect_to cart_path(Cart.find(session[:cart_id]))
-
-  end    
-
+  end
 end
