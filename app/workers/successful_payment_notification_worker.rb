@@ -6,7 +6,7 @@ class SuccessfulPaymentNotificationWorker
   sidekiq_options queue: :successful_payment_notification, retry: 3
 
   def perform(cart)
-    NotificationMailer.successful_payment_notification(cart).deliver_async
+    NotificationMailer.successful_payment_notification(cart).deliver_later
   rescue StandardException => e
     # TODO: setup sentry to logging and reporting errors in real time
     # Sentry.capture_exception(e)
