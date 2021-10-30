@@ -1,15 +1,15 @@
+# frozen_string_literal: true
+
 class CartsController < ApplicationController
   def show
-    begin
-      @cart = Cart.find(session[:cart_id]).cartships.joins(:product).group(:name,:unit_price).count
-      @cart_id = session[:cart_id]
-      @cart_summary = Cart.find(session[:cart_id])
-    rescue
-      redirect_to root_path,alert: "Selected cart is no longer active, probably because it has been paid already"
-    end
+    @cart = Cart.find(session[:cart_id]).cartships.joins(:product).group(:name, :unit_price).count
+    @cart_id = session[:cart_id]
+    @cart_summary = Cart.find(session[:cart_id])
+  rescue StandardError
+    redirect_to root_path, alert: 'Selected cart is no longer active, probably because it has been paid already'
   end
 
-  def pay
+  def process_payment
     @amount = Cart.find(session[:cart_id]).total_price
 
     customer = Stripe::Customer.create(
@@ -25,11 +25,10 @@ class CartsController < ApplicationController
     )
 
     @cart = Cart.find(session[:cart_id])
-    @cart.update(status: "Paid")
+    @cart.update(status: 'Paid')
     session.delete(:cart_id)
     SuccessfulPaymentNotificationWorker.perform_async(@cart)
-    redirect_to root_path,notice: "Payment accepted -- Items will be delivered within 48 hours"
-
+    redirect_to root_path, notice: 'Payment accepted -- Items will be delivered within 48 hours'
   rescue Stripe::CardError => e
     flash[:error] = e.message
     UnsuccessfulPaymentNotificationWorker.perform_async(@cart)

@@ -3,7 +3,7 @@
 # sends mail information user of unsuccessful payment
 class UnsuccesfulPaymentNotificationWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :unsuccessful_payment_notification, retry: 3
+  # sidekiq_options queue: :unsuccessful_payment_notification, retry: 3
 
   def perform(cart)
     NotificationMailer.unsuccessful_payment_notification(cart).deliver_later
