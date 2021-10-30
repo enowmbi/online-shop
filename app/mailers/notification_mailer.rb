@@ -7,7 +7,7 @@ class NotificationMailer < ApplicationMailer
     mail(to: 'benowmbi@yahoo.com', subject: subject)
   end
 
-  def failed_payment_notification(cart)
+  def unsuccessful_payment_notification(cart)
     @greeting = "Dear #{cart.user.email}"
     subject = "Payment was not successful"
     @cart_id = cart.id
